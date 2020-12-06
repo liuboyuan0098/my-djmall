@@ -1,0 +1,90 @@
+server:
+    port: 8888
+
+spring:
+    application:
+        # 服务名
+        name: api-djmall
+    cloud:
+        nacos:
+            discovery:
+                # nacos注册中心地址
+                server-addr: c001:8848
+        gateway:
+            routes: # 路由可以配置多个
+              - id: pms-route # 商品管理路由
+                uri: lb://pms
+                predicates:
+                  - Path=/product/**
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback
+                        
+              - id: oms-route # 订单管理路由
+                uri: lb://oms
+                predicates:
+                  - Path=/order/**
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback
+                  
+              - id: ums-route # 用户管理路由
+                uri: lb://ums
+                predicates:
+                  - Path=/user/**
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback
+                  
+              - id: wms-route # 仓库管理路由
+                uri: lb://wms
+                predicates:
+                  - Path=/ware/**
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback
+                  
+              - id: sms-route # 营销管理路由
+                uri: lb://sms
+                predicates:
+                  - Path=/sale/**
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback
+                  
+              - id: ams-route # 后台管理系统登录权限路由
+                uri: lb://ams
+                predicates:
+                  - Path=/sys/**
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback
+                  
+              - id: captcha-route # 验证码路由
+                uri: lb://ams
+                predicates:
+                  - Path=/captcha.jpg
+                filters:
+                  - name: Hystrix
+                    args:
+                        name: fallbackcommon
+                        # 熔断处理
+                        fallback-uri: forward:/fallback

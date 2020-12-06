@@ -13,7 +13,7 @@
     <java.version>1.8</java.version>
     <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
     <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-    <alibaba-cloud.version>0.9.0.RELEASE</alibaba-cloud.version>
+    <alibaba-cloud.version>2.2.3.RELEASE</alibaba-cloud.version>
   </properties>  
   
   <dependencyManagement>
@@ -34,9 +34,13 @@
 			    <scope>import</scope>
 			</dependency>
 			
-			<!-- 在依赖管理中加入springCloud-alibaba组件的依赖 -->
+			<!-- 
+			在依赖管理中加入springCloud-alibaba组件的依赖
+			springCloud-alibaba组件升级到2.2.3版本，
+			groupId变成com.alibaba.cloud
+			 -->
            <dependency>
-               <groupId>org.springframework.cloud</groupId>
+               <groupId>com.alibaba.cloud</groupId>
                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                <version>${alibaba-cloud.version}</version>
                <type>pom</type>
@@ -44,4 +48,18 @@
            </dependency>
 		</dependencies>
 	</dependencyManagement>
+  <modules>
+  	<module>djmall-common</module>
+  	<module>djmall-gateway</module>
+  	<module>djmall-admin</module>
+  	<module>djmall-product</module>
+  	<module>djmall-user</module>
+  	<module>djmall-ware</module>
+  	<module>djmall-order</module>
+  	<module>djmall-sale</module>
+  	<module>djmall-cart</module>
+  	<module>djmall-search</module>
+  	<module>djmall-item</module>
+  	<module>djmall-member</module>
+  </modules>
 </project>
